@@ -1,0 +1,43 @@
+{% extends "_base.html" %}
+
+{% block body %}
+<div class="register">
+<div class="col-md-6">
+<h1 class="text-center text-danger">Register</h1>
+<hr>
+    <div class="form-group">
+        <label for="InputUsername" class="text-danger">Username:</label><br>
+        <input type="text" id="username" class="form-control" placeholder="Enter Username">    
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <!-- text-muted : 글씨 비활성화 -->
+    </div>
+    <div class="form-group">
+        <label for="InputEmail" class="text-danger">Email:</label>
+        <input type="email" id="email" class="form-control" placeholder="Email">    
+    </div>
+    <div class="form-group">
+        <label for="InputPassword" class="text-danger">Password:</label>
+        <input type="password" id="password" class="form-control" placeholder="Password">    
+    </div>
+    <button class="btn btn-danger" id="register">Register</button>
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+</div>
+</div>
+
+
+    <script>
+$(document).ready(function (){
+$('#register').click(function() {
+    $.post('/apis/v1/users/create/', {'username': $('#username').val(), 'email': $('#email').val(), 'password': $('#password').val()}, function() {
+        alert('가입을 환영합니다!');
+        window.location = {% url 'login' %}; 
+    }).fail(function(data) {
+        alert(data.responseJSON.message);
+    });
+});
+});
+    </script>
+{% endblock %}
