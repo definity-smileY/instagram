@@ -18,12 +18,14 @@ with open(secret_file) as f:
 def get_secret(setting, secrets=secrets):
     try:
         print(secrets[setting])
+        return secrets[setting]
     except KeyError:
         error_msg = "Set the {} environment variable".format(setting)
-        raise ImproperlyConfigured
+        raise ImproperlyConfigured(error_msg)
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_secret("SECRET_KEY")
-
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
@@ -117,15 +119,15 @@ USE_L10N = True
 USE_TZ = True
 
 
-# AWS S3
-AWS_ACCESS_KEY_ID = get_secret("ASW_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = get_secret("AWS_SECRET_ACCESS_KEY")
-AWS_DEFAULT_ACL = 'public-read'
-AWS_REGION = 'ap-northeast-2' 
-AWS_STORAGE_BUCKET_NAME = 'dbsdntjq'
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_REGION)
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# # AWS S3
+# AWS_ACCESS_KEY_ID = get_secret("ASW_ACCESS_KEY_ID")
+# AWS_SECRET_ACCESS_KEY = get_secret("AWS_SECRET_ACCESS_KEY")
+# AWS_DEFAULT_ACL = 'public-read'
+# AWS_REGION = 'ap-northeast-2' 
+# AWS_STORAGE_BUCKET_NAME = 'dbsdntjq'
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_REGION)
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
